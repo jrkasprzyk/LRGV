@@ -36,6 +36,19 @@ void usage(int argc, char* argv[])
 	cerr << "-s <seed> \t Seed. (optional)." << endl;
 	cerr << "-r <realizations> \t Number of Monte Carlo realizations.  Optional here, but if you don't give it here, it must be in the control file!" << endl;
 	cerr << "-h Help (this screen)." << endl;
+	cerr << endl;
+
+	cerr << "Available objectives are: ";
+	vector<string>::const_iterator cii;
+	for(cii=obj_avail.begin(); cii!=obj_avail.end(); cii++){
+	  cerr << *cii << " ";
+	}
+	cerr << endl;
+	cerr << "Available constraints are: ";
+	for(cii=constr_avail.begin(); cii!=constr_avail.end(); cii++){
+	  cerr << *cii << " ";
+	}
+	cerr << endl;
 
 	exit(-1);	
 	return;
