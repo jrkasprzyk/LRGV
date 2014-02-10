@@ -201,7 +201,16 @@ int main(int argc, char **argv)
 	int nvars = -1; int nobjs = -1; int nconstrs = -1;
 	
 	nobjs = int(params.obj_names.size());
-	nconstrs = int(params.constr_names.size());
+	//Fixed a bug, where the program would think there are still constraints even if the constraints
+	//flag is turned off in the control file.
+	if (params.constr_flag == 1)
+	{
+		nconstrs = int(params.constr_names.size());
+	}
+	else
+	{
+		nconstrs = 0;
+	}
 	
 	if (params.model_case == 1)		{nvars = 1;}	//WRR: Case A
 	else if (params.model_case == 2)	{nvars = 6;}	//WRR: Case B
@@ -230,25 +239,27 @@ int main(int argc, char **argv)
 	{
 		MOEA_Init(nobjs, nconstrs);
 		
-		if (local_calcparam == "combined")
+		while(MOEA_Next_solution() == MOEA_SUCCESS)
 		{
-			while(MOEA_Next_solution() == MOEA_SUCCESS)
+			MOEA_Read_doubles(nvars,vars); //first read the solution
+			
+			//If the mode is 'combined' you need to run the drought scenario.
+			//Otherwise, you can skip it. NOTE we should probably check that if
+			//drtranscost is listed as an objective, or one of the other 'dr'
+			//variables is listed, you MUST run combined!
+			
+			if (local_calcparam == "combined")
 			{
-				MOEA_Read_doubles(nvars, vars);
 				calc_LRGV(vars, objs, consts, "ten-year");
 				calc_LRGV(vars, objs, consts, "drought_noinit");
-				MOEA_Write(objs, consts);
 			}
-		}
-		else
-		{
-			while (MOEA_Next_solution() == MOEA_SUCCESS) 
+			else
 			{
-				MOEA_Read_doubles(nvars, vars);
 				calc_LRGV(vars, objs, consts, local_calcparam); 
-				MOEA_Write(objs, consts);
-			} 			
-		}
+			}
+			
+			MOEA_Write(objs, consts);
+		}	
 		
 	}
 	else if (params.mode == "sobol")
