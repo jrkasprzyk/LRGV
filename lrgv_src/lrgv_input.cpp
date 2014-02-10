@@ -637,11 +637,18 @@ void control_read(filenames_structure &filenames)
 			{
 				int junkSims;
 				in >> junkSims;
-				if (params.NumberSims != -1)
+
+				//Since the 2014-02-10 version of the code, the value on the command line
+				//supersedes whatever is in the control file. We used to warn about this,
+				//but that caused a problem with the standard-io version.  Basically we had
+				//to strip anything but the most fatal errors from being reported to the
+				//command line.
+
+				if (params.NumberSims == -1) //In other words, if the NumberSims hasn't been set yet...
 				{
-					cerr << "Warning! You entered number of realizations as " << params.NumberSims << " on the command line. Now changing to value in file, which is: " << junkSims << "." << endl;
-				}
-				params.NumberSims = junkSims;
+					//set it.
+					params.NumberSims = junkSims;
+				}	
 			}
 			else if (!strcmp(junk, "<number_years>")) in >> params.NumberYears;
 			else if (!strcmp(junk, "<synchronous_sampling>")) in >> params.sync_flag;
