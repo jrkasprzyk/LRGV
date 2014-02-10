@@ -70,5 +70,7 @@ struct Individual {
 #include "lrgv.h"
 #include "lrgv_rand.h"
 #include "Simulation.h"
+extern const vector<string> obj_avail;
+extern const vector<string> constr_avail;
 //void calc_LRGV(Simulation &sim, Individual *ind, char *calc_param);
 #endif

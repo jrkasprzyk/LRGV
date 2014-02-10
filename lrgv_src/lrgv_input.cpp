@@ -678,6 +678,15 @@ void control_read(filenames_structure &filenames)
 				in >> str_junk;
 				do
 				{
+ 				  if (find(obj_avail.begin(), obj_avail.end(), str_junk) == obj_avail.end()){
+				    cerr << "Error! objective " << str_junk << " not recognised. Supported objectives are: ";
+				    static vector<string>::const_iterator cii;
+				    for(cii=obj_avail.begin(); cii!=obj_avail.end(); cii++){
+				      cerr << *cii << " ";
+				    }
+				    cerr << endl;
+				    exit(-1);
+				  }
 					//read name
 					params.obj_names.push_back(str_junk);
 					//read scaling factor
@@ -700,6 +709,15 @@ void control_read(filenames_structure &filenames)
 				in >> str_junk;
 				do
 				{
+ 				  if (find(constr_avail.begin(), constr_avail.end(), str_junk) == constr_avail.end()){
+				    cerr << "Error! constraint " << str_junk << " not recognised. Supported constraints are: ";
+				    static vector<string>::const_iterator cii;
+				    for(cii=constr_avail.begin(); cii!=constr_avail.end(); cii++){
+				      cerr << *cii << " ";
+				    }
+				    cerr << endl;
+				    exit(-1);
+				  }
 					//read name
 					params.constr_names.push_back(str_junk);
 					

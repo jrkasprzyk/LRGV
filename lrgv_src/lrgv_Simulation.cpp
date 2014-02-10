@@ -60,6 +60,12 @@ Simulation::~Simulation()
 	//cout << "Destructor out!" << endl;
 }
 
+//Define as std::vector to allow using find
+string arr1[] = {"cost", "surplus", "critrel", "drop", "rel", "cvar", "numleases", "drtranscost", "drvuln","aggcost","aggrel"};
+extern const vector<string> obj_avail (arr1, arr1 + sizeof(arr1) / sizeof(arr1[0]) );
+string arr2[] = {"rel", "critrel", "cvar", "drvuln"};
+extern const vector<string> constr_avail (arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
+
 void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string calc_param)
 {
 	//increment the global sampler counter and output headers to output streams
@@ -1835,7 +1841,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			
 			for (int obj_it = 0; obj_it < (int) params.obj_names.size(); obj_it++)
 			{
-				//Possible objectives: cost, surplus, critrel, drop, rel, cvar, numleases, drtranscost, drvuln
+				// Possible objectives are defined in obj_avail at top of this file and checked when reading control file
 				if (params.obj_names[obj_it] == "cost")
 				{
 					objs[obj_it] = UltimateTotalAvgCost / params.obj_scalingfactors[obj_it];
@@ -1874,7 +1880,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			int constr_marker = 0;
 			for (int constr_it = 0; constr_it < (int) params.constr_names.size(); constr_it++)
 			{
-				//Possible constraints: rel, critrel, cvar, drvuln
+				//Possible constraints are defined in constr_avail at top of this file and checked when reading control file
 				// first we read which of the constraints we are doing
 				double constr_junk;
 				if (params.constr_names[constr_it] == "rel")
@@ -2240,6 +2246,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 		//Assign Objectives and Constraints
 		if (params.obj_flag)
 		{
+		        //Possible objectives are defined in obj_avail at top of this file and checked when reading control file
 			for (int obj_it = 0; obj_it < (int) params.obj_names.size(); obj_it++)
 			{
 				if (params.obj_names[obj_it] == "drtranscost")
@@ -2268,6 +2275,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 
 		if (params.constr_flag)
 		{
+                        //Possible constraints are defined in constr_avail at top of this file and checked when reading control file
 			int constr_marker = 0;
 			for (int constr_it = 0; constr_it < (int) params.constr_names.size(); constr_it++)
 			{
