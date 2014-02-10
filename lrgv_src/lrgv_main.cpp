@@ -161,16 +161,17 @@ int main(int argc, char **argv)
 	//
 	
 	//no matter what, initialize random number generator
-	cout << "Init seeds...";
+	//Note: The cout commands are for debugging only.  They may interrupt the flow of the Borg standard/io communication if used!
+	//cout << "Init seeds...";
 	init_seeds();
-	cout << "OK!" << endl;
+	//cout << "OK!" << endl;
 	
-	cout << "Randomize...";
+	//cout << "Randomize...";
 	randomize(seed[RS]);
-	cout << "OK!" << endl;
+	//cout << "OK!" << endl;
 	
 	//initialize the model
-	cout << "Init_LRGV()...";
+	//cout << "Init_LRGV()...";
 	if (local_calcparam == "drought-full" || local_calcparam == "ten-year")
 	{
 		//only initialize once and pass the parameter in directly
@@ -182,7 +183,7 @@ int main(int argc, char **argv)
 		init_LRGV(argv, "drought_noinit");
 	}
 
-	cout << "OK!" << endl;
+	//cout << "OK!" << endl;
 	
 	//initialize the individual
 	//Individual actual_ind;
@@ -252,7 +253,7 @@ int main(int argc, char **argv)
 	}
 	else if (params.mode == "sobol")
 	{
-		cout << "Processing for Sobol." << endl;
+		//cout << "Processing for Sobol." << endl;
 		
 		//prepare filenames
 		input_filename = params.filename_base + "_parameters.txt";
@@ -394,7 +395,7 @@ int main(int argc, char **argv)
 				in.getline(junk_char,2000);
 			}
 			num_sol = sol_it - 1;
-			cout << "There are " << num_sol << " solutions in the file." << endl;
+			//cout << "There are " << num_sol << " solutions in the file." << endl;
 
 			in.clear();
 			in.seekg(0,ios::beg);
