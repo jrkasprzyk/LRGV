@@ -213,6 +213,9 @@ void vulnerability_calc(int local_sims, int local_years)
 		temp_sum = 0.0;
 		temp_currentmax = 0.0;
 		temp_currentperiodmax = 0;
+		
+		//cout << "Inside the vulnerability calc, local_years is " << local_years << endl;
+		
 		while (k < 12*local_years)
 		{
 			temp_sum = 0.0;
@@ -246,6 +249,7 @@ void vulnerability_calc(int local_sims, int local_years)
 	//For failure periods, this value is the expected value of maximum failure period length.
 	g.failure_periods = temp_outermax_periods;
 	g.total_periods = total_periods; //only used in drought for now, strict sum
+	//cout << "vulnerability calc over" << endl;
 }
 void single_sync_sampling()
 {

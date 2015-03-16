@@ -192,7 +192,11 @@ void write_results_header(filenames_structure &filenames, string calc_param)
 	//the same time.  This snippet only outputs the continguous drought if Sobol is turned on and
 	//synchronous sampling is turned off.  For different combinations of these modes, this code should
 	//be tested further.
-	if (params.mode == "sobol" && !params.sync_flag) //changed from "or" to "and", 11-26-2010
+	
+	//On 03-16-2015, we began testing this further indeed!
+	//old if: if (params.mode == "sobol" && !params.sync_flag) //changed from "or" to "and", 11-26-2010
+	cout << "calc_param is" << calc_param << endl;
+	if (calc_param == "combined") //new version on 03-16-2015
 	{
 		results_stream << getDelim << "drought-transcost";
 		results_stream << getDelim << "drought-vulnerability";

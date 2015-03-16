@@ -259,6 +259,7 @@ int main(int argc, char **argv)
 			}
 			
 			MOEA_Write(objs, consts);
+			//cerr << "Just calculated" << endl;
 		}	
 		
 	}

@@ -2055,8 +2055,9 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			vulnerability_calc(params.NumberSims, params.NumberYears);
 			results_stream << getDelim << g.vulnerability << getDelim << g.failure_periods;
 
-			results_stream << getDelim << constr[0] << getDelim << constr[1];
-			if (params.model_case > 1) results_stream << getDelim << constr[2] ;
+			//03-16-2015: These variables are not valid anymore, took them out of reporting
+			//results_stream << getDelim << constr[0] << getDelim << constr[1];
+		//	if (params.model_case > 1) results_stream << getDelim << constr[2] ;
 
 			//results_stream << getDelim << params.ifri;
 
