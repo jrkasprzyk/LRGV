@@ -67,7 +67,7 @@ ostream &getDelim(ostream &stream)
 }
 
 void write_results_header(filenames_structure &filenames, string calc_param)
-{joka09
+{
 	if (params.mode == "resample")	//legacy: processing_flag == 0
 	{
 		results_stream << "Algorithm" << getDelim;
@@ -224,7 +224,7 @@ void write_results_header(filenames_structure &filenames, string calc_param)
 	//}
 	//else
 	//{
-		results_stream << endl;
+	//	results_stream << endl;
 	//}
 	
 	//JRK: note the commented out section should make this work for now.
