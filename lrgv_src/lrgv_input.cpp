@@ -67,7 +67,7 @@ ostream &getDelim(ostream &stream)
 }
 
 void write_results_header(filenames_structure &filenames, string calc_param)
-{
+{joka09
 	if (params.mode == "resample")	//legacy: processing_flag == 0
 	{
 		results_stream << "Algorithm" << getDelim;
@@ -90,8 +90,10 @@ void write_results_header(filenames_structure &filenames, string calc_param)
 	}
 	results_stream << getDelim << "obj-resilience" << getDelim << "fail-vol";
 	results_stream << getDelim << "obj-vulnerability" << getDelim << "max-failureperiods";
-	results_stream << getDelim <<  "constr-rel" << getDelim << "constr-crel";
-	if (params.model_case > 1) results_stream << getDelim << "constr-cvar";
+	//JRK removed these constraint violation reporting header because the values are
+	//no longer actually plotted.
+	//results_stream << getDelim <<  "constr-rel" << getDelim << "constr-crel";
+	//if (params.model_case > 1) results_stream << getDelim << "constr-cvar";
 	//results_stream << getDelim << "init_rights";
 	results_stream << getDelim << "rights";
 	if (params.model_case > 1)
@@ -194,10 +196,12 @@ void write_results_header(filenames_structure &filenames, string calc_param)
 	//be tested further.
 	
 	//On 03-16-2015, we began testing this further indeed!
+	//let's just output everything because we think that it will work ok.
+	//but I wonder what happens when the init_lrgv gets called in the drought itself?
 	//old if: if (params.mode == "sobol" && !params.sync_flag) //changed from "or" to "and", 11-26-2010
-	cout << "calc_param is" << calc_param << endl;
-	if (calc_param == "combined") //new version on 03-16-2015
-	{
+	//cout << "calc_param is" << calc_param << endl;
+	//if (calc_param == "combined") //new version on 03-16-2015
+	//{
 		results_stream << getDelim << "drought-transcost";
 		results_stream << getDelim << "drought-vulnerability";
 		results_stream << getDelim << "drought-maxfailureperiods";
@@ -217,11 +221,14 @@ void write_results_header(filenames_structure &filenames, string calc_param)
 		}
 		results_stream << getDelim << "drought-No";
 		results_stream << getDelim << "drought-Nx" << endl;
-	}
-	else
-	{
+	//}
+	//else
+	//{
 		results_stream << endl;
-	}
+	//}
+	
+	//JRK: note the commented out section should make this work for now.
+	//but eventually we should update the logic of how these things work with the new modes
 	return;
 }
 void write_monthly_header(filenames_structure &filenames)

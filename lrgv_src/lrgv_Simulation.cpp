@@ -2207,8 +2207,12 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			//so we need a new line here...
 			//9/21/2012 Removed preprocessor definition here.
 			if (params.mode == "sobol" || params.sync_flag) results_stream << endl; //legacy: first part was processing_flag == 2
-			//BAND AID fix here.  If there are no drought objectives, we need to do an endline here:
-			if (params.mode == "std-io") results_stream << endl;
+			
+			//On 3/23/2015 the BAND-AID fixes continue.  Almost all applications of the
+			//LRGV use the 'combined' calculation mode, and for this, the drought will
+			//put out its own metrics.  Therefore we will comment this out, and allow the drought
+			//to continue putting out stuff.
+			//if (params.mode == "std-io") results_stream << endl;
 		} // end if params.results_flag
 		//End Results Reporting
 		if (params.monthly_flag) write_monthly_output();
