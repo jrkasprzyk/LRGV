@@ -142,7 +142,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			if (params.model_case == 3)
 			{
 				strategy.alpha = vars[6];
-				strategy.beta = vars[6] + vars[7];	
+				strategy.beta = vars[6] + vars[7];
 			}
 		}
 		//case 4: de novo "simple strategy"
