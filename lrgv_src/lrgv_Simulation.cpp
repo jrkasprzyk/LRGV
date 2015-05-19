@@ -142,7 +142,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			if (params.model_case == 3)
 			{
 				strategy.alpha = vars[6];
-				strategy.beta = vars[6] + vars[7];
+				strategy.beta = vars[6] + vars[7];	
 			}
 		}
 		//case 4: de novo "simple strategy"
@@ -330,6 +330,7 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 		//cases 2 and 3, WRR formulations for Cases B - D
 		else if (params.model_case == 2 || params.model_case == 3)
 		{
+			//cout << "Flag under std-io mode is getting called for Prob Cases 2 & 3 - good!" << endl; //Abby (05/18/15) - see if this flag is called correctly
 			if (params.model_case == 2) lease_flag = 0;
 			else lease_flag = 1;
 
@@ -343,8 +344,12 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			strategy.beta2 = vars[4]+ vars[5];
 			if (params.model_case == 3)
 			{
+				//cout << "Second Flag under std-io mode is getting called for Prob Case 3 - good!" << endl; //Abby (05/18/15) - see if this flag is called correctly
 				strategy.alpha = vars[6];
 				strategy.beta = vars[6] + vars[7];
+				//cout <<strategy.beta << endl; //Abby (05/18/15) - check to see the value of strategy.beta
+				if (strategy.beta > 3.0) strategy.beta = 3.0; //Abby (05/18/15) - this truncation was only performed in the "sobol" mode if statement before 05/18/15
+				//cout << strategy.beta << endl; //Abby (05/18/15) - check to see the value of strategy.beta after truncation
 			}
 		}
 	//case 4: de novo "simple strategy"
@@ -2365,3 +2370,4 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 		finalize_roulette();
 	}
 }
+
