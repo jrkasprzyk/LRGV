@@ -248,6 +248,10 @@ int main(int argc, char **argv)
 			//drtranscost is listed as an objective, or one of the other 'dr'
 			//variables is listed, you MUST run combined!
 			
+			// 5/20/2015: The transform function was not called here, even though
+			// the flag would have indicated that it was supposed to be used!
+			if (params.discretize_flag) transform_LRGV(vars);
+			
 			if (local_calcparam == "combined")
 			{
 				calc_LRGV(vars, objs, consts, "ten-year");
