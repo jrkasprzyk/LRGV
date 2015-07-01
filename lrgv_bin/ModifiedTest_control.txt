@@ -9,7 +9,7 @@
 #  Type the constant parameters each on a new line, in any order
 #  in the form: <parameter> value
 
-<transform> 1
+<discretize_flag> 1
 <critical_reliability_threshold> 0.6	# Supply/Demand theshold that determines critical failures
 <options_price> 5.30
 <strike_price> 15.0
