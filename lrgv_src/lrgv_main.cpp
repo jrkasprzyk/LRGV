@@ -196,7 +196,6 @@ int main(int argc, char **argv)
 	//constraints are handled in the control file.
 	
 	if (params.obj_names.size() <= 0) 	{cerr << "Error! Objectives count from control file is: " << params.obj_names.size() << ". Exiting."; exit(-1);}
-	if (params.constr_names.size() <= 0) 	{cerr << "Error! Constraints count from control file is: " << params.constr_names.size() << ". Exiting."; exit(-1);}
 
 	int nvars = -1; int nobjs = -1; int nconstrs = -1;
 	
@@ -210,6 +209,11 @@ int main(int argc, char **argv)
 	else
 	{
 		nconstrs = 0;
+		if (params.constr_names.size() != 0)
+		{
+			//This is an error because there are constraints in the control file, but the constraint flag has been turned off.
+			cerr << "Error! Constraints count from control file is: " << params.constr_names.size() << ", but the constraint_flag indicates there are no constraints. Exiting."; exit(-1);
+		}
 	}
 	
 	if (params.model_case == 1)		{nvars = 1;}	//WRR: Case A
@@ -230,6 +234,7 @@ int main(int argc, char **argv)
 	vars = new double [nvars];
 	objs = new double [nobjs];
 	consts = new double [nconstrs];
+
 	//cout << "OK!" << endl;
 	
 	//EXECUTION
@@ -238,7 +243,7 @@ int main(int argc, char **argv)
 	if (params.mode == "std-io")
 	{
 		MOEA_Init(nobjs, nconstrs);
-		
+
 		while(MOEA_Next_solution() == MOEA_SUCCESS)
 		{
 			MOEA_Read_doubles(nvars,vars); //first read the solution
