@@ -97,40 +97,24 @@ int main(int argc, char **argv)
 	params.NumberSims = -1;
 	//cout << "local_calcparam is originally " << local_calcparam << "." << endl;
 
-	//while ((opt = getopt(argc, argv, "m:b:c:s::h::")) != -1)
-	while ((opt = getopt(argc, argv, "m:b:c:s:r:h")) != -1)
-	{
-		switch (opt)
-		{
-			case 'm':	//modeling mode
-				//cout << "We hit the m case and optarg is: " << optarg << "." << endl;
-				params.mode = optarg;
-				//cout << "set mode to: " << params.mode << "." << endl;
-				break;
-			case 'b':	//filename base
-				//cout << "We hit the b case and optarg is: " << optarg << "." << endl;
-				params.filename_base = optarg;
-				//cout << "Set params.filename_base to: " << params.filename_base << "." << endl;
-				break;
-			case 'c':	//calculation type (ten year, drought, etc)
-				//cout << "We hit the c case and optarg is: " << optarg << "." << endl;
-				local_calcparam = optarg;
-				//cout << "Set local_calcparam to: " << local_calcparam << "." << endl;
-				break;
-			case 's':	//random seed
-				//cout << "We hit the s case and optarg is: " << optarg << "." << endl;
-				RS = atoi(optarg);
-				//cout << "set RS to: " << RS << "." << endl;
-				break;
-			case 'r':	//realizations
-				params.NumberSims = atoi(optarg);
-				break;
-			case 'h':	//help
-				usage(argc, argv);
-				break;
-			default:
-				usage(argc, argv);
-				break;
+	// Manual cross-platform argument parsing (replaces getopt)
+	for (int i = 1; i < argc; ++i) {
+		std::string arg = argv[i];
+		if (arg == "-m" && i + 1 < argc) {
+			params.mode = argv[++i];
+		} else if (arg == "-b" && i + 1 < argc) {
+			params.filename_base = argv[++i];
+		} else if (arg == "-c" && i + 1 < argc) {
+			local_calcparam = argv[++i];
+		} else if (arg == "-s" && i + 1 < argc) {
+			RS = atoi(argv[++i]);
+		} else if (arg == "-r" && i + 1 < argc) {
+			params.NumberSims = atoi(argv[++i]);
+		} else if (arg == "-h") {
+			usage(argc, argv);
+		} else {
+			// Unknown or malformed argument
+			usage(argc, argv);
 		}
 	}
 

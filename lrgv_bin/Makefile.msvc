@@ -1,0 +1,80 @@
+# MSVC Makefile for LRGV project
+# Usage: nmake /f Makefile.msvc
+
+
+MAIN_DIR=../
+SOURCE_DIR=$(MAIN_DIR)lrgv_src
+OBJ_DIR=./obj
+SOURCES= \
+    $(SOURCE_DIR)\moeaframework.c \
+    $(SOURCE_DIR)\lrgv_functions.cpp \
+    $(SOURCE_DIR)\lrgv_input.cpp \
+    $(SOURCE_DIR)\lrgv_main.cpp \
+    $(SOURCE_DIR)\lrgv_memory.cpp \
+    $(SOURCE_DIR)\lrgv_rand.cpp \
+    $(SOURCE_DIR)\lrgv_roulette.cpp \
+    $(SOURCE_DIR)\lrgv_Simulation.cpp \
+    $(SOURCE_DIR)\lrgv_utility.cpp \
+    $(SOURCE_DIR)\rand.cpp
+
+# Explicitly list object files in OBJ_DIR
+OBJECTS= \
+    $(OBJ_DIR)\moeaframework.obj \
+    $(OBJ_DIR)\lrgv_functions.obj \
+    $(OBJ_DIR)\lrgv_input.obj \
+    $(OBJ_DIR)\lrgv_main.obj \
+    $(OBJ_DIR)\lrgv_memory.obj \
+    $(OBJ_DIR)\lrgv_rand.obj \
+    $(OBJ_DIR)\lrgv_roulette.obj \
+    $(OBJ_DIR)\lrgv_Simulation.obj \
+    $(OBJ_DIR)\lrgv_utility.obj \
+    $(OBJ_DIR)\rand.obj
+CC=cl
+CFLAGS=/c /O2 /W3 /I. /I$(SOURCE_DIR) /DWIN32
+LDFLAGS=
+EXECUTABLE=lrgvForMOEAFramework.exe
+
+all: $(OBJ_DIR) $(EXECUTABLE)
+
+$(OBJ_DIR):
+	if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(OBJECTS) $(LDFLAGS) /Fe$(EXECUTABLE)
+
+
+# Explicit rules for each object file
+
+$(OBJ_DIR)\moeaframework.obj: $(SOURCE_DIR)\moeaframework.c
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\moeaframework.obj $(SOURCE_DIR)\moeaframework.c
+
+$(OBJ_DIR)\lrgv_functions.obj: $(SOURCE_DIR)\lrgv_functions.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_functions.obj $(SOURCE_DIR)\lrgv_functions.cpp
+
+$(OBJ_DIR)\lrgv_input.obj: $(SOURCE_DIR)\lrgv_input.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_input.obj $(SOURCE_DIR)\lrgv_input.cpp
+
+$(OBJ_DIR)\lrgv_main.obj: $(SOURCE_DIR)\lrgv_main.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_main.obj $(SOURCE_DIR)\lrgv_main.cpp
+
+$(OBJ_DIR)\lrgv_memory.obj: $(SOURCE_DIR)\lrgv_memory.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_memory.obj $(SOURCE_DIR)\lrgv_memory.cpp
+
+$(OBJ_DIR)\lrgv_rand.obj: $(SOURCE_DIR)\lrgv_rand.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_rand.obj $(SOURCE_DIR)\lrgv_rand.cpp
+
+$(OBJ_DIR)\lrgv_roulette.obj: $(SOURCE_DIR)\lrgv_roulette.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_roulette.obj $(SOURCE_DIR)\lrgv_roulette.cpp
+
+$(OBJ_DIR)\lrgv_Simulation.obj: $(SOURCE_DIR)\lrgv_Simulation.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_Simulation.obj $(SOURCE_DIR)\lrgv_Simulation.cpp
+
+$(OBJ_DIR)\lrgv_utility.obj: $(SOURCE_DIR)\lrgv_utility.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\lrgv_utility.obj $(SOURCE_DIR)\lrgv_utility.cpp
+
+$(OBJ_DIR)\rand.obj: $(SOURCE_DIR)\rand.cpp
+    $(CC) $(CFLAGS) /Fo$(OBJ_DIR)\rand.obj $(SOURCE_DIR)\rand.cpp
+
+clean:
+	del /Q $(OBJ_DIR)\*.obj $(EXECUTABLE)
+	if exist $(OBJ_DIR) rmdir /S /Q $(OBJ_DIR)

@@ -48,8 +48,14 @@ along with the LRGV.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include <assert.h>
 
-//new to this version:
+// only include unistd on non-Windows machines. This may not be needed
+// now that we included a cross-platform argument parser, but we'll leave 
+// it in for now just in case.
+
+#if !defined(_WIN32) && !defined(_WIN64)
 #include <unistd.h>
+#endif
+
 #include "moeaframework.h"
 
 using namespace std;

@@ -1,0 +1,5 @@
+
+# No external packages required. Standard library only.
+
+# Specify minimum Python version
+python_version >= 3.13.12
