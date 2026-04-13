@@ -1,16 +1,13 @@
 /*
 Copyright (C) 2008-2013 Joseph Kasprzyk, Patrick Reed, Brian Kirsch, Greg Characklis and others.
-
 LRGV is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 LRGV is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
-
 You should have received a copy of the GNU Lesser General Public License
 along with the LRGV.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -343,8 +340,12 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 			strategy.beta2 = vars[4]+ vars[5];
 			if (params.model_case == 3)
 			{
+				strategy.alpha2 = vars[4]; // Edit 0617 (Abby) Needed here for Case 3
+				strategy.beta2 = vars[4]+ vars[5]; // Edit 0617 (Abby) Needed here for Case 3
+				if (strategy.beta2 > 3) strategy.beta2 = 3; // Edit 0617 (Abby) Truncation needed under std-io
 				strategy.alpha = vars[6];
 				strategy.beta = vars[6] + vars[7];
+				if (strategy.beta2 > 3) strategy.beta2 = 3; // Edit 0617 (Abby) Truncation needed under std-io
 			}
 		}
 	//case 4: de novo "simple strategy"
