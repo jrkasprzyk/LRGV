@@ -90,7 +90,6 @@ int main(int argc, char **argv)
 	//
 	//PARSE COMMAND LINE INPUT
 	//
-	int opt;
 	int RS = 0;
 	params.mode = "unset";
 	local_calcparam = "unset";
@@ -265,8 +264,6 @@ int main(int argc, char **argv)
 		ranges_filename = params.filename_base + "_ranges.txt";
 		
 		char junk_char[2000];
-		int junk_int;
-		double junk_double;
 		int sol_it = 0;
 		
 		char ranges_char[1000];

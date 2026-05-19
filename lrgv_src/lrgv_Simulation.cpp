@@ -2048,8 +2048,6 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 				}
 			}
 			results_stream << setprecision(6);
-			double temp = resilience_calc();
-
 			results_stream << getDelim << resilience_calc();
 			results_stream << getDelim << failvol_calc();
 			vulnerability_calc(params.NumberSims, params.NumberYears);
